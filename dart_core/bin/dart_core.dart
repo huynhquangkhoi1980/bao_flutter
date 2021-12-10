@@ -16,14 +16,39 @@ void main(List<String> arguments) {
   // countDevisble3and5(limitNumber: 10000);
 
   // call printSumOfDivisible3NumbersInList()
-  List<int> list5 = [4, 3, 10, 9, 15, 7, 6, 5, 8];
-  printSumOfDivisible3NumbersInList(listSource: list5);
+  // List<int> list5 = [4, 3, 10, 9, 15, 7, 6, 5, 8];
+  // printSumOfDivisible3NumbersInList(listSource: list5);
 
-
+  // Print Hotline in map 
+  Map classInformation = {
+    "id": 12,
+    "name": "Báo Flutter 1.2",
+    "description": " Lớp học lập trình Flutter, hot line: 0349582808"
+  };
+  printHotlineNumber(mapResource: classInformation);
 }
 
 /*
-*
+* 3. Cho thông tin biểu diễn dưới sạng sau :
+* var classInformation = {
+*     “id”: 12,
+*     “name”: “Báo Flutter 1.2”,
+*     “description”: “ Lớp học lập trình Flutter, hot line: 0349582808”
+* };
+* Yêu cầu: In ra số hotline của lớp học trên.
+*/
+void printHotlineNumber({required mapResource}){
+  // Get Description from map 
+  String strDescription = mapResource['description'];
+  // Get index of [:] char due to base on it to get the hotline number
+  int index = strDescription.indexOf(":");
+  // Get hotline number
+  String stHotline = strDescription.substring(index + 1);
+  print("Hotline is: ${stHotline}");
+}
+
+/*
+* Cho một list : List list5 = [4, 3, 10, 9, 15, 7, 6, 5, 8]; In ra tổng các số chia hết cho 3.
 */
 void printSumOfDivisible3NumbersInList({required List<int> listSource}){
   int sum = 0;
