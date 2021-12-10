@@ -10,15 +10,37 @@ void main(List<String> arguments) {
   // calFibonaci(untilNumber: 20000000).toString();
 
   // call printEvenNumberSumUnder400() due to print the event number that their sum less than 400
-  printEvenNumberSumUnder400();
+  // printEvenNumberSumUnder400();
 
-
+  // call countDevisble3and5() due to print number of divisble 3 numbers and divisble 5 numbers
+  // countDevisble3and5(limitNumber: 10000);
 
 
 
 
 }
 
+/*
+* Từ. 1 đến 10000, Viết chương trình đếm xem có bao nhiêu chữ số chia hết cho 3 , bao nhiêu số chia hết cho 5
+*/
+void countDevisble3and5({required int limitNumber}){
+  int countDivisble3 = 0;
+  int countDivisble5 = 0;
+  for (var i = 0; i < limitNumber; i++) {
+    if (i%3==0) {
+      print(i.toString() + " divisble 3");
+      countDivisble3 += 1;
+    }
+
+    if (i%5==0) {
+      print(i.toString() + " divisble 5");
+      countDivisble5 += 1;
+    }
+  }
+
+  print("There are ${countDivisble3.toString()} numbers divislbe 3");
+  print("There are ${countDivisble5.toString()} numbers divislbe 5");
+}
 /*
 * Từ 1 đến 1000 in ra các số chẵn mà tổng các số đó không lớn hơn 400.
 */
