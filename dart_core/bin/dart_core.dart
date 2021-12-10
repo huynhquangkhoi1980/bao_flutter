@@ -15,9 +15,24 @@ void main(List<String> arguments) {
   // call countDevisble3and5() due to print number of divisble 3 numbers and divisble 5 numbers
   // countDevisble3and5(limitNumber: 10000);
 
+  // call printSumOfDivisible3NumbersInList()
+  List<int> list5 = [4, 3, 10, 9, 15, 7, 6, 5, 8];
+  printSumOfDivisible3NumbersInList(listSource: list5);
 
 
+}
 
+/*
+*
+*/
+void printSumOfDivisible3NumbersInList({required List<int> listSource}){
+  int sum = 0;
+  for (var i in listSource) {
+    if (i%3==0) {
+      sum += i;
+    }
+  }
+  print("Sum of divisible 3 numbers in list is ${sum.toString()}");
 }
 
 /*
