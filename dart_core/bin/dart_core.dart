@@ -7,7 +7,7 @@ void main(List<String> arguments) {
   // print("Giai thừa của 5 = ${calGiaiThua(5)}");
 
   // Tính Fibonaci
-  calFibonaci(untilNumber: 10000000).toString();
+  calFibonaci(untilNumber: 20000000).toString();
 
 
 
