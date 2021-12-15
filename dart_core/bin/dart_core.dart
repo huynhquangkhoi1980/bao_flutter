@@ -1,130 +1,51 @@
-import 'package:dart_core/dart_core.dart' as dart_core;
+import 'rectangle.dart';
+import 'square.dart';
+import 'student.dart';
+
 
 void main(List<String> arguments) {
-  // print('Hello world: ${dart_core.calculate()}!');
+  // Tính thông tin hình Vuông & hình Chữ Nhật
+  // homeWorkNumber2();
 
-  // Tính giai thừa
-  // print("Giai thừa của 5 = ${calGiaiThua(5)}");
-
-  // Tính Fibonaci
-  // calFibonaci(untilNumber: 20000000).toString();
-
-  // call printEvenNumberSumUnder400() due to print the event number that their sum less than 400
-  // printEvenNumberSumUnder400();
-
-  // call countDevisble3and5() due to print number of divisble 3 numbers and divisble 5 numbers
-  // countDevisble3and5(limitNumber: 10000);
-
-  // call printSumOfDivisible3NumbersInList()
-  // List<int> list5 = [4, 3, 10, 9, 15, 7, 6, 5, 8];
-  // printSumOfDivisible3NumbersInList(listSource: list5);
-
-  // Print Hotline in map 
-  Map classInformation = {
-    "id": 12,
-    "name": "Báo Flutter 1.2",
-    "description": " Lớp học lập trình Flutter, hot line: 0349582808"
-  };
-  printHotlineNumber(mapResource: classInformation);
+  // Show student infos homework
+  // homeWorkNumber1();
 }
 
 /*
-* 3. Cho thông tin biểu diễn dưới sạng sau :
-* var classInformation = {
-*     “id”: 12,
-*     “name”: “Báo Flutter 1.2”,
-*     “description”: “ Lớp học lập trình Flutter, hot line: 0349582808”
-* };
-* Yêu cầu: In ra số hotline của lớp học trên.
+* Bài tập OOP về hình Vuông & hình Chữ Nhật
 */
-void printHotlineNumber({required mapResource}){
-  // Get Description from map 
-  String strDescription = mapResource['description'];
-  // Get index of [:] char due to base on it to get the hotline number
-  int index = strDescription.indexOf(":");
-  // Get hotline number
-  String stHotline = strDescription.substring(index + 1);
-  print("Hotline is: ${stHotline}");
+void homeWorkNumber2(){
+  Rectangle rectangle = Rectangle(width: 6, high: 9);
+  rectangle.getInfo();
+
+  Square square =Square(edge: 7);
+  square.getInfo();
 }
 
 /*
-* Cho một list : List list5 = [4, 3, 10, 9, 15, 7, 6, 5, 8]; In ra tổng các số chia hết cho 3.
+* Bài tập OOP về phần học sinh
 */
-void printSumOfDivisible3NumbersInList({required List<int> listSource}){
-  int sum = 0;
-  for (var i in listSource) {
-    if (i%3==0) {
-      sum += i;
+void homeWorkNumber1(){
+  Student student1 = Student(studentId: "100", studentName: "Huynh Quang Khoi",mathMark: 8, literatureMark: 6.5, englishMark: 7);
+  student1.setBirthday("15-11-1980");
+  student1.setPhoneNumber("0909999041");
+
+  Student student2 = Student(studentId: "200", studentName: "Huynh Trung Nghia",mathMark: 7, literatureMark: 6, englishMark: 9.5);
+  student2.setBirthday("20-12-1983");
+  student2.setPhoneNumber("0983504462");
+
+  Student student3 = Student(studentId: "300", studentName: "Tran Thi Ngoc Tu",mathMark: 9, literatureMark: 8, englishMark: 9.5);
+  student3.setBirthday("26-09-1982");
+  student3.setPhoneNumber("0974999578");
+
+  List<Student> studentList = [student1, student2, student3];
+  Student bestStudent = student1;
+  for (var student in studentList) {
+    if (bestStudent.averageMark() < student.averageMark()) {
+      bestStudent = student;
     }
-  }
-  print("Sum of divisible 3 numbers in list is ${sum.toString()}");
-}
-
-/*
-* Từ. 1 đến 10000, Viết chương trình đếm xem có bao nhiêu chữ số chia hết cho 3 , bao nhiêu số chia hết cho 5
-*/
-void countDevisble3and5({required int limitNumber}){
-  int countDivisble3 = 0;
-  int countDivisble5 = 0;
-  for (var i = 0; i < limitNumber; i++) {
-    if (i%3==0) {
-      print(i.toString() + " divisble 3");
-      countDivisble3 += 1;
-    }
-
-    if (i%5==0) {
-      print(i.toString() + " divisble 5");
-      countDivisble5 += 1;
-    }
+    student.showStudentInfos();
   }
 
-  print("There are ${countDivisble3.toString()} numbers divislbe 3");
-  print("There are ${countDivisble5.toString()} numbers divislbe 5");
-}
-/*
-* Từ 1 đến 1000 in ra các số chẵn mà tổng các số đó không lớn hơn 400.
-*/
-void printEvenNumberSumUnder400(){
-  int sum = 0;
-  // creat a list save the event number object
-  List<int> listResult = [];
-  for(int i=0; i<=1000; i++){
-    // If sum > 400 then stop this for loop
-    if (sum > 400) break;
-    // While sum less than 400 and i is a event number then calculate sum for i
-    if ((sum <= 400) && (i%2==0)){
-      sum += i;
-      print(i.toString() + "--" + sum.toString());
-      if(sum <= 400) listResult.add(i);
-    }
-  }
-  
-  for (var j in listResult) {
-    // print all the event number that their sum less than 400
-    print(j.toString());
-  }
-}
-
-// Tính Fibonaci
-int calFibonaci({required int untilNumber}){
-  int fibonaciCurrentNumber = 0;
-  int tmpNumber = 1;
-  int preFibo = 0;
-  while (tmpNumber <= untilNumber) {
-    preFibo = fibonaciCurrentNumber;
-    fibonaciCurrentNumber = tmpNumber;
-    print(fibonaciCurrentNumber.toString());
-    tmpNumber = preFibo + tmpNumber;
-  }
-
-  return fibonaciCurrentNumber;
-}
-
-// Tính giai thừa
-double calGiaiThua(int number){
-  double result = 1;
-  for (var i = 1; i <= number; i++) {
-    result *=i;
-  }
-  return result;
+  print("Tên học sinh có điểm trung bình lớn nhất ${bestStudent.studentName} với số điểm trung bình là ${bestStudent.averageMark()}");
 }
