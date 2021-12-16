@@ -1,54 +1,33 @@
-// ignore_for_file: unnecessary_this
+import 'person.dart';
 
-class Student {
-  String? studentId;
-  String? studentName;
-  String? _birthday;
-  String? _phoneNumber;
+class Student extends Person {
+  int? _mark;
+  String? _grade;
 
-  double? mathMark;
-  double? literatureMark;
-  double? englishMark;
+  Student({required name, required id}) : super(name: name, id: id);
 
-  Student({required this.studentId, required this.studentName, required this.mathMark, required this.literatureMark, required this.englishMark});
-
-  // Get and set birthday
-  getBirthday() => _birthday;
-  void setBirthday(String birthday){
-    _birthday = birthday;
+  getMark() => _mark;
+  void setMark(int mark){
+    _mark =mark;
   }
 
-  // Get and set phone number
-  getPhoneNumber() => _phoneNumber;
-  void setPhoneNumber(String phoneNumber){
-    _phoneNumber = phoneNumber;
+  getGrade() => _grade;
+
+  @override
+  void display() {
+    print("Người tên là $name, với Id là $id, có số điểm là $_mark, là ${_studentRanking(_mark!)}");
   }
 
-  void showStudentInfos(){
-    print(
-      "Họ tên: $studentName \n" +
-      "Mã số học sinh: $studentId \n" +
-      "Ngày sinh: $_birthday \n" +
-      "Số điện thoại: $_phoneNumber \n" +
-      "Điểm trung bình:${averageMark().toString()}" 
-    );
-    studentRanking(averageMark());
-    print("------------------------------");
-  }
-
-  double averageMark(){
-    return (this.mathMark! + this.literatureMark! + this.englishMark!)/3;
-  }
-
-  void studentRanking(double averageMark){
+  // Get grade of studen depend on mark
+  String _studentRanking(int averageMark){
     if (averageMark < 5) {
-      print("Học sinh loại yếu kém");
+      return "học sinh loại yếu kém";
     } else if (averageMark < 6.5) {
-      print("Học sinh loại trung bình");
+      return "học sinh loại trung bình";
     }else if (averageMark < 8) {
-      print("Học sinh loại khá");
+      return "học sinh loại khá";
     }else  {
-      print("Học sinh loại giỏi");
+      return "học sinh loại giỏi";
     } 
   }
 }
