@@ -1,25 +1,20 @@
-import 'person_sample.dart';
-
-class Person extends PersonSample {
-  String? id;
-  String? name;
+class Person {
+  String? _name;
   int? _age;
+  String? _homeTown;
 
-  Person({required this.id, required this.name});
+  getName() => _name;
+  void setName(String name){
+    _name = name;
+  }
 
   getAge() => _age;
   void setAge(int age){
     _age = age;
   }
 
-  @override
-  void input() {
-    // TODO: implement input
-  }
-
-  @override
-  void display() {
-    // TODO: implement display
-    print("Người tên là $name, với Id là $id, có số tuổi là $_age");
+  getHomeTown() => _homeTown;
+  void setHomeTown(String homeTown){
+    _homeTown = homeTown;
   }
 }

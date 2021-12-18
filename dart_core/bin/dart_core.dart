@@ -1,65 +1,144 @@
-import 'rectangle.dart';
-import 'square.dart';
-import 'hoc_sinh.dart';
-import 'student.dart';
+import 'package:http/http.dart' as http;
 
+import 'person.dart';
+import 'stream_devided_3.dart';
 
-void main(List<String> arguments) {
-  
-  // Khởi tạo đối tượng student và thực thi hàm display để in ra thông tin của student đó về điểm, grade (xếp hạng )
-  homeWorkNumber3();
+void main(List<String> arguments) async {
+StreamDevided3 object = StreamDevided3();
+object.createStream();
 
-  // Tính thông tin hình Vuông & hình Chữ Nhật
-  // homeWorkNumber2();
+  // Person person = Person();
+  // person.setName("Huynh Quang Khoi");
+  // person.setAge(41);
+  // person.setHomeTown("Quang Ngai province");
 
-  // Show student infos homework
-  // homeWorkNumber1();
+  // stutlerIntroduce(person);
+
 }
 
-/*
-* Bài tập OOP về student
-*/
-void homeWorkNumber3(){
-  Student student1 = Student(name: "Huỳnh Quang Khôi", id: "2008");
-  student1.setAge(41);
-  student1.setMark(7);
-  student1.display();
-}
-/*
-* Bài tập OOP về hình Vuông & hình Chữ Nhật
-*/
-void homeWorkNumber2(){
-  Rectangle rectangle = Rectangle(width: 6, high: 9);
-  rectangle.getInfo();
+// Stutler introduce use person class
+void stutlerIntroduce(Person person) async{
+  var name = await showNameByClass(person);
+  print("Tên tôi là $name");
 
-  Square square =Square(edge: 7);
-  square.getInfo();
+  var age = await showAgeByClass(person);
+  print("Tôi $age tuổi.");
+
+  var homeTowm = await showHomeTownByClass(person);
+  print("Quê tôi ở $homeTowm");
 }
 
-/*
-* Bài tập OOP về phần học sinh
-*/
-void homeWorkNumber1(){
-  HocSinh hocSinh1 = HocSinh(studentId: "100", studentName: "Huynh Quang Khoi",mathMark: 8, literatureMark: 6.5, englishMark: 7);
-  hocSinh1.setBirthday("15-11-1980");
-  hocSinh1.setPhoneNumber("0909999041");
+// Homework: stutler introduce
+Future<String> showNameByClass(Person person) async{
+  Future<String> showName() => Future.delayed(Duration(seconds:3), () => person.getName());
+  return showName();
+}
 
-  HocSinh hocSinh2 = HocSinh(studentId: "200", studentName: "Huynh Trung Nghia",mathMark: 7, literatureMark: 6, englishMark: 9.5);
-  hocSinh2.setBirthday("20-12-1983");
-  hocSinh2.setPhoneNumber("0983504462");
+Future<int> showAgeByClass(Person person) async{
+  Future<int> showAge() => Future.delayed(Duration(seconds:5), () => person.getAge());
+  return showAge();
+}
 
-  HocSinh hocSinh3 = HocSinh(studentId: "300", studentName: "Tran Thi Ngoc Tu",mathMark: 9, literatureMark: 8, englishMark: 9.5);
-  hocSinh3.setBirthday("26-09-1982");
-  hocSinh3.setPhoneNumber("0974999578");
+Future<String> showHomeTownByClass(Person person) async{
+  Future<String> showHomeTown() => Future.delayed(Duration(seconds:3), () => person.getHomeTown());
+  return showHomeTown();
+}
 
-  List<HocSinh> studentList = [hocSinh1, hocSinh2, hocSinh3];
-  HocSinh bestStudent = hocSinh1;
-  for (var student in studentList) {
-    if (bestStudent.averageMark() < student.averageMark()) {
-      bestStudent = student;
+Future<String> showName() => Future.delayed(Duration(seconds:3), () => 'Huynh Quang Khoi');
+
+Future<int> showAge() => Future.delayed(Duration(seconds:5), () => 41);
+
+Future<String> showHomeTown() => Future.delayed(Duration(seconds:2), () => 'tỉnh Quang Ngai');
+
+
+// 6. Future - then: this way could execute other below command first than. No need to use asynch, await with then 
+void futureThen() {
+  makeLastNumber().then(
+    (value){
+      print(value.toString());
     }
-    student.showStudentInfos();
-  }
-
-  print("Tên học sinh có điểm trung bình lớn nhất ${bestStudent.studentName} với số điểm trung bình là ${bestStudent.averageMark()}");
+  );
 }
+
+// 6. Future - then
+Future<int> makeLastNumber(){
+  return Future.delayed(
+    Duration(seconds: 2), 
+    (){return 5;}
+  );
+}
+
+// 5. Stream-Asynch*, Yield: get data out from stream and calculate the sum of them
+Future<int> sumStream(Stream<int> stream) async{
+  var sum = 0;
+  await for (var item in stream) {
+    sum += item;
+  }
+  return sum;
+}
+
+// 5. Stream-Asynch*, Yield: create numbers from 1 to destinationNumber, put it in the stream
+Stream<int> countStream(int destinationNumber) async*{
+  for (var i = 1; i < destinationNumber; i++) {
+    yield i;
+  }
+}
+
+
+// 4. Stream listen
+void streamListen() async{
+  // Create delay time 2 seconds
+  Duration delayTime = Duration(seconds: 2);
+
+  // Create Stream as int data, then delayTime will create some numbers in stream
+  Stream<int> stream = Stream<int>.periodic(delayTime, makeNumber);
+
+  // Listen from stream and in data from there 
+  stream.listen(
+    (event) {
+      print(event.toString());
+    }
+  );
+} 
+
+// 3. Create number in stream depend on delay time and print it out from there
+void createDelayTime() async{
+  // Create delay time 5 seconds
+  Duration delayTime = Duration(seconds: 5);
+
+  // Create Stream as int data, then delayTime will create some numbers in stream
+  Stream<int> stream = Stream<int>.periodic(delayTime, makeNumber);
+
+  // Await and read data from stream
+  await for (var item in stream) {
+    print(item);
+  }
+}
+
+// 3.Start value from 1
+int makeNumber(int value) => (value + 1);
+
+
+/*
+* 2. Read data from a website
+*/
+Future<String> getData() async {
+  try {
+    // ignore: unused_local_variable
+    final response = await http.get(Uri.parse("https://vnexpress.net/"));
+    print(response.headers.toString());
+    return response.body;
+  } catch (e) {
+    print("Error: $e");
+  }
+  return "";
+}
+
+// 1. Call and wait return result from fetchUserOrder function
+Future<String> createOrderMessage() async{
+  var order = await fetchUserOder();
+  return 'Your order is: $order';
+}
+
+// 1. wait for 2 second then return the string as 'Large Latte'
+Future<String> fetchUserOder() => Future.delayed(Duration(seconds: 2), () => 'Large Latte');
