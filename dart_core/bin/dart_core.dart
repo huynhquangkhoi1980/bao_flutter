@@ -3,6 +3,7 @@ void main(List<String> arguments) {
   checkAgeList();
 }
 
+// input a Age list. Check every input Age is OK? If not, print it and its index.
 void checkAgeList(){
   List<dynamic> ageList = [1,3,5, 8,"test age",20, 25, 26, -30 , 15.5, 40 , 65];
   for (var i = 0; i < ageList.length; i++) {
@@ -12,7 +13,6 @@ void checkAgeList(){
 }
 
 void checkNGAgeTryCatch({required dynamic age, required int index}){
-
   try {
     if (age is! int ) {
       if (age is double) {
